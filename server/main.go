@@ -8,9 +8,10 @@ import (
 	"net"
 	"time"
 
-	pb "loader-api/proto"
+	pb "github.com/jaliyaL/loader-api/proto"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 type loaderServer struct {
@@ -50,6 +51,9 @@ func main() {
 
 	grpcServer := grpc.NewServer()
 	pb.RegisterLoaderServiceServer(grpcServer, &loaderServer{})
+
+	// Enable reflection for grpcurl or other clients
+	reflection.Register(grpcServer)
 
 	log.Println("⚡ LoaderService running on port :50051")
 	if err := grpcServer.Serve(lis); err != nil {
