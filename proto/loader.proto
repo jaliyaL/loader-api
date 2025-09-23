@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package loader;
+
+option go_package = "loader-api/proto;loaderpb";
+
+// Loader service for generating todos
+service LoaderService {
+  rpc GenerateLoad (LoadRequest) returns (LoadResponse);
+}
+
+message LoadRequest {
+  int32 count = 1; // number of todos to generate
+}
+
+message Todo {
+  int32 id = 1;
+  string title = 2;
+}
+
+message LoadResponse {
+  repeated Todo todos = 1;
+}
