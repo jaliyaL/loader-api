@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package loader;
 
-option go_package = "loader-api/proto;loaderpb";
+option go_package = "github.com/jaliyaL/loader-api/proto;loaderpb";
 
 // Loader service for generating todos
 service LoaderService {
