@@ -19,7 +19,7 @@ type loaderServer struct {
 }
 
 // GenerateLoad generates fake todo tasks
-func (s *loaderServer) GenerateLoad(ctx context.Context, req *pb.LoadRequest) (*pb.LoadResponse, error) {
+func (s *loaderServer) GetTodos(ctx context.Context, req *pb.GetTodosRequest) (*pb.GetTodosResponse, error) {
 	var todos []*pb.Todo
 	for i := 1; i <= int(req.Count); i++ {
 		t := &pb.Todo{
@@ -28,7 +28,7 @@ func (s *loaderServer) GenerateLoad(ctx context.Context, req *pb.LoadRequest) (*
 		}
 		todos = append(todos, t)
 	}
-	return &pb.LoadResponse{Todos: todos}, nil
+	return &pb.GetTodosResponse{Todos: todos}, nil
 }
 
 func randomTitle() string {

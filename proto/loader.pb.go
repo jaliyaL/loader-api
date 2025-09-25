@@ -21,27 +21,28 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type LoadRequest struct {
+// Request to fetch a number of todos
+type GetTodosRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Count         int32                  `protobuf:"varint,1,opt,name=count,proto3" json:"count,omitempty"` // number of todos to generate
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *LoadRequest) Reset() {
-	*x = LoadRequest{}
+func (x *GetTodosRequest) Reset() {
+	*x = GetTodosRequest{}
 	mi := &file_proto_loader_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *LoadRequest) String() string {
+func (x *GetTodosRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*LoadRequest) ProtoMessage() {}
+func (*GetTodosRequest) ProtoMessage() {}
 
-func (x *LoadRequest) ProtoReflect() protoreflect.Message {
+func (x *GetTodosRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_loader_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -53,18 +54,19 @@ func (x *LoadRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use LoadRequest.ProtoReflect.Descriptor instead.
-func (*LoadRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetTodosRequest.ProtoReflect.Descriptor instead.
+func (*GetTodosRequest) Descriptor() ([]byte, []int) {
 	return file_proto_loader_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *LoadRequest) GetCount() int32 {
+func (x *GetTodosRequest) GetCount() int32 {
 	if x != nil {
 		return x.Count
 	}
 	return 0
 }
 
+// A single todo item
 type Todo struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -117,27 +119,28 @@ func (x *Todo) GetTitle() string {
 	return ""
 }
 
-type LoadResponse struct {
+// Response containing a list of todos
+type GetTodosResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Todos         []*Todo                `protobuf:"bytes,1,rep,name=todos,proto3" json:"todos,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *LoadResponse) Reset() {
-	*x = LoadResponse{}
+func (x *GetTodosResponse) Reset() {
+	*x = GetTodosResponse{}
 	mi := &file_proto_loader_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *LoadResponse) String() string {
+func (x *GetTodosResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*LoadResponse) ProtoMessage() {}
+func (*GetTodosResponse) ProtoMessage() {}
 
-func (x *LoadResponse) ProtoReflect() protoreflect.Message {
+func (x *GetTodosResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_loader_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -149,12 +152,12 @@ func (x *LoadResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use LoadResponse.ProtoReflect.Descriptor instead.
-func (*LoadResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetTodosResponse.ProtoReflect.Descriptor instead.
+func (*GetTodosResponse) Descriptor() ([]byte, []int) {
 	return file_proto_loader_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *LoadResponse) GetTodos() []*Todo {
+func (x *GetTodosResponse) GetTodos() []*Todo {
 	if x != nil {
 		return x.Todos
 	}
@@ -165,16 +168,16 @@ var File_proto_loader_proto protoreflect.FileDescriptor
 
 const file_proto_loader_proto_rawDesc = "" +
 	"\n" +
-	"\x12proto/loader.proto\x12\x06loader\"#\n" +
-	"\vLoadRequest\x12\x14\n" +
+	"\x12proto/loader.proto\x12\x06loader\"'\n" +
+	"\x0fGetTodosRequest\x12\x14\n" +
 	"\x05count\x18\x01 \x01(\x05R\x05count\",\n" +
 	"\x04Todo\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x14\n" +
-	"\x05title\x18\x02 \x01(\tR\x05title\"2\n" +
-	"\fLoadResponse\x12\"\n" +
-	"\x05todos\x18\x01 \x03(\v2\f.loader.TodoR\x05todos2J\n" +
-	"\rLoaderService\x129\n" +
-	"\fGenerateLoad\x12\x13.loader.LoadRequest\x1a\x14.loader.LoadResponseB.Z,github.com/jaliyaL/loader-api/proto;loaderpbb\x06proto3"
+	"\x05title\x18\x02 \x01(\tR\x05title\"6\n" +
+	"\x10GetTodosResponse\x12\"\n" +
+	"\x05todos\x18\x01 \x03(\v2\f.loader.TodoR\x05todos2N\n" +
+	"\rLoaderService\x12=\n" +
+	"\bGetTodos\x12\x17.loader.GetTodosRequest\x1a\x18.loader.GetTodosResponseB.Z,github.com/jaliyaL/loader-api/proto;loaderpbb\x06proto3"
 
 var (
 	file_proto_loader_proto_rawDescOnce sync.Once
@@ -190,14 +193,14 @@ func file_proto_loader_proto_rawDescGZIP() []byte {
 
 var file_proto_loader_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_proto_loader_proto_goTypes = []any{
-	(*LoadRequest)(nil),  // 0: loader.LoadRequest
-	(*Todo)(nil),         // 1: loader.Todo
-	(*LoadResponse)(nil), // 2: loader.LoadResponse
+	(*GetTodosRequest)(nil),  // 0: loader.GetTodosRequest
+	(*Todo)(nil),             // 1: loader.Todo
+	(*GetTodosResponse)(nil), // 2: loader.GetTodosResponse
 }
 var file_proto_loader_proto_depIdxs = []int32{
-	1, // 0: loader.LoadResponse.todos:type_name -> loader.Todo
-	0, // 1: loader.LoaderService.GenerateLoad:input_type -> loader.LoadRequest
-	2, // 2: loader.LoaderService.GenerateLoad:output_type -> loader.LoadResponse
+	1, // 0: loader.GetTodosResponse.todos:type_name -> loader.Todo
+	0, // 1: loader.LoaderService.GetTodos:input_type -> loader.GetTodosRequest
+	2, // 2: loader.LoaderService.GetTodos:output_type -> loader.GetTodosResponse
 	2, // [2:3] is the sub-list for method output_type
 	1, // [1:2] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

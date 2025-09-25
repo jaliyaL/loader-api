@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	LoaderService_GenerateLoad_FullMethodName = "/loader.LoaderService/GenerateLoad"
+	LoaderService_GetTodos_FullMethodName = "/loader.LoaderService/GetTodos"
 )
 
 // LoaderServiceClient is the client API for LoaderService service.
@@ -28,7 +28,7 @@ const (
 //
 // Loader service for generating todos
 type LoaderServiceClient interface {
-	GenerateLoad(ctx context.Context, in *LoadRequest, opts ...grpc.CallOption) (*LoadResponse, error)
+	GetTodos(ctx context.Context, in *GetTodosRequest, opts ...grpc.CallOption) (*GetTodosResponse, error)
 }
 
 type loaderServiceClient struct {
@@ -39,10 +39,10 @@ func NewLoaderServiceClient(cc grpc.ClientConnInterface) LoaderServiceClient {
 	return &loaderServiceClient{cc}
 }
 
-func (c *loaderServiceClient) GenerateLoad(ctx context.Context, in *LoadRequest, opts ...grpc.CallOption) (*LoadResponse, error) {
+func (c *loaderServiceClient) GetTodos(ctx context.Context, in *GetTodosRequest, opts ...grpc.CallOption) (*GetTodosResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(LoadResponse)
-	err := c.cc.Invoke(ctx, LoaderService_GenerateLoad_FullMethodName, in, out, cOpts...)
+	out := new(GetTodosResponse)
+	err := c.cc.Invoke(ctx, LoaderService_GetTodos_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -55,7 +55,7 @@ func (c *loaderServiceClient) GenerateLoad(ctx context.Context, in *LoadRequest,
 //
 // Loader service for generating todos
 type LoaderServiceServer interface {
-	GenerateLoad(context.Context, *LoadRequest) (*LoadResponse, error)
+	GetTodos(context.Context, *GetTodosRequest) (*GetTodosResponse, error)
 	mustEmbedUnimplementedLoaderServiceServer()
 }
 
@@ -66,8 +66,8 @@ type LoaderServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedLoaderServiceServer struct{}
 
-func (UnimplementedLoaderServiceServer) GenerateLoad(context.Context, *LoadRequest) (*LoadResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GenerateLoad not implemented")
+func (UnimplementedLoaderServiceServer) GetTodos(context.Context, *GetTodosRequest) (*GetTodosResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTodos not implemented")
 }
 func (UnimplementedLoaderServiceServer) mustEmbedUnimplementedLoaderServiceServer() {}
 func (UnimplementedLoaderServiceServer) testEmbeddedByValue()                       {}
@@ -90,20 +90,20 @@ func RegisterLoaderServiceServer(s grpc.ServiceRegistrar, srv LoaderServiceServe
 	s.RegisterService(&LoaderService_ServiceDesc, srv)
 }
 
-func _LoaderService_GenerateLoad_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LoadRequest)
+func _LoaderService_GetTodos_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTodosRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LoaderServiceServer).GenerateLoad(ctx, in)
+		return srv.(LoaderServiceServer).GetTodos(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: LoaderService_GenerateLoad_FullMethodName,
+		FullMethod: LoaderService_GetTodos_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LoaderServiceServer).GenerateLoad(ctx, req.(*LoadRequest))
+		return srv.(LoaderServiceServer).GetTodos(ctx, req.(*GetTodosRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -116,8 +116,8 @@ var LoaderService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*LoaderServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GenerateLoad",
-			Handler:    _LoaderService_GenerateLoad_Handler,
+			MethodName: "GetTodos",
+			Handler:    _LoaderService_GetTodos_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

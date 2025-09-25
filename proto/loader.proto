@@ -6,18 +6,21 @@ option go_package = "github.com/jaliyaL/loader-api/proto;loaderpb";
 
 // Loader service for generating todos
 service LoaderService {
-  rpc GenerateLoad (LoadRequest) returns (LoadResponse);
+  rpc GetTodos (GetTodosRequest) returns (GetTodosResponse);
 }
 
-message LoadRequest {
+// Request to fetch a number of todos
+message GetTodosRequest {
   int32 count = 1; // number of todos to generate
 }
 
+// A single todo item
 message Todo {
   int32 id = 1;
   string title = 2;
 }
 
-message LoadResponse {
+// Response containing a list of todos
+message GetTodosResponse {
   repeated Todo todos = 1;
 }
